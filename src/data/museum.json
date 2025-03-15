@@ -1,0 +1,131 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Albertina",
+        "address": "Albertinaplatz 1, 1010 Wien",
+        "description": "One of Vienna's premier museums. Originated as a collection of art presented a Habsburg family to in 1776.",
+        "website": "https://www.albertina.at/",
+        "wheelchair": "yes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [16.3682605, 48.2046365]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Sisi Museum",
+        "address": "Hofburg, 1010 Wien",
+        "description": "Museum about cult figure Empress Elisabeth \"Sisi\" 1837-1898, wife of Emperor Franz Joseph",
+        "website": "https://www.sisimuseum-hofburg.at",
+        "wheelchair": "yes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [16.3656104, 48.2076988]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Museum des Blindenwesens",
+        "address": "Wittelsbachstraße 5, 1020 Wien",
+        "description": "Guided tours by appointment. Development of teaching and learning aids for teaching blind people.",
+        "website": "https://www.bbi.at/museum",
+        "wheelchair": "no"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [16.3992724, 48.2063691]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Bank Austria Kunstforum",
+        "address": "Freyung 8, 1010 Wien",
+        "description": "Bank Austria Art Collection. Around 10,000 works and one of foremost collections of Austrian art.",
+        "website": "https://www.kunstforumwien.at/",
+        "wheelchair": "yes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [16.3662578, 48.2114411]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Ernst Fuchs Museum",
+        "address": "Hüttelbergstraße 26, 1140 Wien",
+        "description": "Museum dedicated to artist Ernst Fuchs.",
+        "website": "https://www.ernstfuchsmuseum.at/",
+        "wheelchair": "no"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [16.2559656, 48.2098481]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Architekturzentrum Wien",
+        "address": "Museumsplatz 1, 1070 Wien",
+        "description": "Austrian Museum of Architecture and research centre focused on architecture and building culture.",
+        "website": "https://www.azw.at/",
+        "wheelchair": "yes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [16.3576164, 48.2041786]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Jüdisches Museum Wien",
+        "address": "Dorotheergasse 11, 1010 Wien",
+        "description": "Museum raising awareness of Jewish history, religion, and culture in Vienna.",
+        "website": "https://www.jmw.at/",
+        "wheelchair": "yes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [16.3692931, 48.2071298]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Wiener Kriminalmuseum",
+        "address": "Große Sperlgasse 24, 1020 Wien",
+        "description": "Vienna Crime Museum combined with the Museum of the Vienna Federal Police Directorate.",
+        "website": "http://www.kriminalmuseum.at",
+        "wheelchair": "no"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [16.3784885, 48.2182253]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Sigmund Freud Museum",
+        "address": "Berggasse 19, 1090 Wien",
+        "description": "Museum dedicated to Sigmund Freud, founder of psychoanalysis.",
+        "website": "https://www.freud-museum.at/",
+        "wheelchair": "no"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [16.3630536, 48.218659]
+      }
+    }
+  ]
+}
