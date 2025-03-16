@@ -2,7 +2,7 @@ import axios from "axios";
 
 const API_URL = "https://overpass-api.de/api/interpreter";
 
-export async function getMuseums(limit = 10) {
+export async function getMuseums(limit = 15) {
   const query = `
     [out:json][timeout:25];
     area(id:3600109166)->.searchArea;
@@ -18,6 +18,7 @@ export async function getMuseums(limit = 10) {
       name: element.tags.name,
       address: element.tags["addr:street"],
       description: element.tags["description:en"],
+      opening_hours: element.tags.opening_hours,
       lat: element.lat,
       lon: element.lon,
     }))

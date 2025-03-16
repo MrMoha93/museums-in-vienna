@@ -14,6 +14,7 @@ const MuseumPopup = ({ selectedMuseum, onClose }) => {
         <h1>{selectedMuseum.name}</h1>
         <p className="popup-text">{selectedMuseum.description}</p>
         <p className="popup-text">{selectedMuseum.address}</p>
+        <p className="popup-text">{selectedMuseum.opening_hours}</p>
       </div>
     </Popup>
   );
