@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Map, { Marker } from "react-map-gl/mapbox";
+import { getMuseums } from "../services/museumService";
 import MuseumPopup from "./MuseumPopup";
 import MarkerButton from "./MarkerButton";
 import useEscapeKey from "../hooks/useEscapeKey";
-import museumData from "../data/museum.json";
 
 const MuseumMap = () => {
   const [viewport, setViewport] = useState({
@@ -11,16 +11,20 @@ const MuseumMap = () => {
     longitude: 16.3725042,
     width: "100vw",
     height: "100vh",
-    zoom: 12,
+    zoom: 14,
   });
 
+  const [museums, setMuseums] = useState([]);
   const [selectedMuseum, setSelectedMuseum] = useState(null);
 
   useEscapeKey(() => setSelectedMuseum(null));
 
+  useEffect(() => {
+    getMuseums(10).then(setMuseums);
+  }, []);
+
   const handleSelectMuseum = (e, museum) => {
     e.preventDefault();
-    console.log("Museum selected:", museum);
     setSelectedMuseum(museum);
   };
 
@@ -31,12 +35,8 @@ const MuseumMap = () => {
       mapStyle="mapbox://styles/mapbox/streets-v11"
       onMove={(evt) => setViewport(evt.viewState)}
     >
-      {museumData.features.map((museum) => (
-        <Marker
-          key={museum.properties.id}
-          latitude={museum.geometry.coordinates[1]}
-          longitude={museum.geometry.coordinates[0]}
-        >
+      {museums.map((museum) => (
+        <Marker key={museum.id} latitude={museum.lat} longitude={museum.lon}>
           <MarkerButton museum={museum} onSelect={handleSelectMuseum} />
         </Marker>
       ))}
