@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Map, { Marker } from "react-map-gl/mapbox";
-import { getMuseums } from "../services/museumService";
 import MuseumPopup from "./MuseumPopup";
 import MarkerButton from "./MarkerButton";
 import useEscapeKey from "../hooks/useEscapeKey";
+import { useMuseums } from "../hooks/useMuseums";
 
 const MuseumMap = () => {
   const [viewport, setViewport] = useState({
@@ -14,14 +14,10 @@ const MuseumMap = () => {
     zoom: 14,
   });
 
-  const [museums, setMuseums] = useState([]);
+  const museums = useMuseums();
   const [selectedMuseum, setSelectedMuseum] = useState(null);
 
   useEscapeKey(() => setSelectedMuseum(null));
-
-  useEffect(() => {
-    getMuseums(10).then(setMuseums);
-  }, []);
 
   const handleSelectMuseum = (e, museum) => {
     e.preventDefault();
