@@ -4,6 +4,7 @@
     {
       "type": "Feature",
       "properties": {
+        "id": 1,
         "name": "Albertina",
         "address": "Albertinaplatz 1, 1010 Wien",
         "description": "One of Vienna's premier museums. Originated as a collection of art presented a Habsburg family to in 1776.",
@@ -18,6 +19,8 @@
     {
       "type": "Feature",
       "properties": {
+        "id": 2,
+
         "name": "Sisi Museum",
         "address": "Hofburg, 1010 Wien",
         "description": "Museum about cult figure Empress Elisabeth \"Sisi\" 1837-1898, wife of Emperor Franz Joseph",
@@ -32,6 +35,8 @@
     {
       "type": "Feature",
       "properties": {
+        "id": 3,
+
         "name": "Museum des Blindenwesens",
         "address": "Wittelsbachstraße 5, 1020 Wien",
         "description": "Guided tours by appointment. Development of teaching and learning aids for teaching blind people.",
@@ -46,6 +51,7 @@
     {
       "type": "Feature",
       "properties": {
+        "id": 4,
         "name": "Bank Austria Kunstforum",
         "address": "Freyung 8, 1010 Wien",
         "description": "Bank Austria Art Collection. Around 10,000 works and one of foremost collections of Austrian art.",
@@ -60,6 +66,7 @@
     {
       "type": "Feature",
       "properties": {
+        "id": 5,
         "name": "Ernst Fuchs Museum",
         "address": "Hüttelbergstraße 26, 1140 Wien",
         "description": "Museum dedicated to artist Ernst Fuchs.",
@@ -74,6 +81,7 @@
     {
       "type": "Feature",
       "properties": {
+        "id": 6,
         "name": "Architekturzentrum Wien",
         "address": "Museumsplatz 1, 1070 Wien",
         "description": "Austrian Museum of Architecture and research centre focused on architecture and building culture.",
@@ -88,6 +96,7 @@
     {
       "type": "Feature",
       "properties": {
+        "id": 7,
         "name": "Jüdisches Museum Wien",
         "address": "Dorotheergasse 11, 1010 Wien",
         "description": "Museum raising awareness of Jewish history, religion, and culture in Vienna.",
@@ -102,6 +111,7 @@
     {
       "type": "Feature",
       "properties": {
+        "id": 8,
         "name": "Wiener Kriminalmuseum",
         "address": "Große Sperlgasse 24, 1020 Wien",
         "description": "Vienna Crime Museum combined with the Museum of the Vienna Federal Police Directorate.",
@@ -116,6 +126,7 @@
     {
       "type": "Feature",
       "properties": {
+        "id": 9,
         "name": "Sigmund Freud Museum",
         "address": "Berggasse 19, 1090 Wien",
         "description": "Museum dedicated to Sigmund Freud, founder of psychoanalysis.",
