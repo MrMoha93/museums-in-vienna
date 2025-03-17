@@ -4,8 +4,7 @@ import MuseumPopup from "./MuseumPopup";
 import MarkerButton from "./MarkerButton";
 import useEscapeKey from "../hooks/useEscapeKey";
 import { useMuseums } from "../hooks/useMuseums";
-import Supercluster from "supercluster";
-import { useRef, useMemo } from "react";
+import useCluster from "../hooks/useCluster";
 
 const MuseumMap = () => {
   const [viewport, setViewport] = useState({
@@ -21,33 +20,14 @@ const MuseumMap = () => {
 
   useEscapeKey(() => setSelectedMuseum(null));
 
-  const mapRef = useRef(null);
-  const supercluster = useRef(new Supercluster({ radius: 50, maxZoom: 16 }));
-
   const handleSelectMuseum = (museum) => {
     setSelectedMuseum(museum);
   };
 
-  const clusters = useMemo(() => {
-    if (!museums.length) return [];
-
-    supercluster.current.load(
-      museums.map((museum) => ({
-        type: "Feature",
-        properties: { cluster: false, museum },
-        geometry: { type: "Point", coordinates: [museum.lon, museum.lat] },
-      }))
-    );
-
-    return supercluster.current.getClusters(
-      [16.18, 48.1, 16.58, 48.32],
-      viewport.zoom
-    );
-  }, [museums, viewport.zoom]);
+  const { clusters, supercluster } = useCluster(museums, viewport.zoom);
 
   return (
     <Map
-      ref={mapRef}
       initialViewState={viewport}
       mapboxAccessToken={import.meta.env.VITE_MAPBOX_ACCESS_TOKEN}
       mapStyle="mapbox://styles/mapbox/streets-v11"
