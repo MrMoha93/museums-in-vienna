@@ -7,6 +7,14 @@ const useCluster = (museums, zoom) => {
   const clusters = useMemo(() => {
     if (!museums.length) return [];
 
+    if (zoom > 13) {
+      return museums.map((museum) => ({
+        type: "Feature",
+        properties: { cluster: false, museum },
+        geometry: { type: "Point", coordinates: [museum.lon, museum.lat] },
+      }));
+    }
+
     supercluster.current.load(
       museums.map((museum) => ({
         type: "Feature",

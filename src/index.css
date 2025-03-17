@@ -37,3 +37,17 @@ code {
 .popup-text {
   font-size: 18px;
 }
+
+.cluster-marker {
+  font-size: 14px;
+  font-weight: bold;
+  padding: 8px;
+  border-radius: 50%;
+  background-color: rgba(0, 0, 0, 0.616);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+}
