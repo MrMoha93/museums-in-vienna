@@ -17,6 +17,8 @@ export async function getPlaces(limit = 15) {
       id: element.id,
       name: element.tags.name,
       address: element.tags["addr:street"],
+      housenumber: element.tags["addr:housenumber"],
+      postcode: element.tags["addr:postcode"],
       description: element.tags["description:en"],
       opening_hours: element.tags.opening_hours,
       lat: element.lat,
