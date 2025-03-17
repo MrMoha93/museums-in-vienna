@@ -1,7 +1,9 @@
 import { Popup } from "react-map-gl/mapbox";
 
 const MuseumPopup = ({ selectedMuseum, onClose }) => {
-  if (!selectedMuseum) return null;
+  if (!selectedMuseum || !selectedMuseum.lat || !selectedMuseum.lon) {
+    return null;
+  }
 
   return (
     <Popup
