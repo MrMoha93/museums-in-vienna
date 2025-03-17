@@ -1,12 +1,11 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faLandmark } from "@fortawesome/free-solid-svg-icons";
-import { faLayerGroup } from "@fortawesome/free-solid-svg-icons";
+import { faLandmark, faLayerGroup } from "@fortawesome/free-solid-svg-icons";
 
-const MarkerButton = ({ museum, onSelect }) => {
-  const isCluster = museum.cluster;
+const MarkerButton = ({ place, onSelect }) => {
+  const isCluster = place.cluster;
 
   return (
-    <button className="marker-btn" onClick={(e) => onSelect(e, museum)}>
+    <button className="marker-btn" onClick={(e) => onSelect(e, place)}>
       {isCluster ? (
         <FontAwesomeIcon icon={faLayerGroup} size="2x" />
       ) : (

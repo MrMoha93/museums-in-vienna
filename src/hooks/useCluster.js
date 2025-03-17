@@ -1,30 +1,30 @@
 import { useMemo, useRef } from "react";
 import Supercluster from "supercluster";
 
-const useCluster = (museums, zoom) => {
+const useCluster = (places, zoom) => {
   const supercluster = useRef(new Supercluster({ radius: 50, maxZoom: 16 }));
 
   const clusters = useMemo(() => {
-    if (!museums.length) return [];
+    if (!places.length) return [];
 
     if (zoom > 13) {
-      return museums.map((museum) => ({
+      return places.map((place) => ({
         type: "Feature",
-        properties: { cluster: false, museum },
-        geometry: { type: "Point", coordinates: [museum.lon, museum.lat] },
+        properties: { cluster: false, place },
+        geometry: { type: "Point", coordinates: [place.lon, place.lat] },
       }));
     }
 
     supercluster.current.load(
-      museums.map((museum) => ({
+      places.map((place) => ({
         type: "Feature",
-        properties: { cluster: false, museum },
-        geometry: { type: "Point", coordinates: [museum.lon, museum.lat] },
+        properties: { cluster: false, place },
+        geometry: { type: "Point", coordinates: [place.lon, place.lat] },
       }))
     );
 
     return supercluster.current.getClusters([-180, -85, 180, 85], zoom);
-  }, [museums, zoom]);
+  }, [places, zoom]);
 
   return { clusters, supercluster };
 };
