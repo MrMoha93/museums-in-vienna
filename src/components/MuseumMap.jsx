@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import Map, { Marker } from "react-map-gl/mapbox";
+import { useMuseums } from "../hooks/useMuseums";
 import MuseumPopup from "./MuseumPopup";
 import MarkerButton from "./MarkerButton";
 import useEscapeKey from "../hooks/useEscapeKey";
-import { useMuseums } from "../hooks/useMuseums";
 import useCluster from "../hooks/useCluster";
+import ClusterMarker from "./ClusterMarker";
 
 const MuseumMap = () => {
   const [viewport, setViewport] = useState({
@@ -17,14 +18,11 @@ const MuseumMap = () => {
 
   const museums = useMuseums();
   const [selectedMuseum, setSelectedMuseum] = useState(null);
-
-  useEscapeKey(() => setSelectedMuseum(null));
-
+  const { clusters, supercluster } = useCluster(museums, viewport.zoom);
   const handleSelectMuseum = (museum) => {
     setSelectedMuseum(museum);
   };
-
-  const { clusters, supercluster } = useCluster(museums, viewport.zoom);
+  useEscapeKey(() => setSelectedMuseum(null));
 
   return (
     <Map
@@ -35,34 +33,17 @@ const MuseumMap = () => {
     >
       {clusters.map((cluster) => {
         const [longitude, latitude] = cluster.geometry.coordinates;
-        const { cluster: isCluster, point_count: pointCount } =
-          cluster.properties;
+        const { cluster: isCluster } = cluster.properties;
 
         if (isCluster) {
           return (
-            <Marker
+            <ClusterMarker
               key={`cluster-${cluster.id}`}
-              longitude={longitude}
-              latitude={latitude}
-            >
-              <button
-                className="cluster-btn"
-                onClick={() => {
-                  const expansionZoom = Math.min(
-                    supercluster.current.getClusterExpansionZoom(cluster.id),
-                    16
-                  );
-                  setViewport({
-                    ...viewport,
-                    zoom: expansionZoom,
-                    latitude,
-                    longitude,
-                  });
-                }}
-              >
-                {pointCount}
-              </button>
-            </Marker>
+              cluster={cluster}
+              supercluster={supercluster}
+              viewport={viewport}
+              setViewport={setViewport}
+            />
           );
         }
 
