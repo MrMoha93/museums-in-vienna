@@ -7,28 +7,31 @@ import useEscapeKey from "../hooks/useEscapeKey";
 import useCluster from "../hooks/useCluster";
 import ClusterMarker from "./ClusterMarker";
 
-const PlaceMap = () => {
-  const [viewport, setViewport] = useState({
-    latitude: 48.2083537,
-    longitude: 16.3725042,
-    width: "100vw",
-    height: "100vh",
-    zoom: 14,
-  });
+const MAPBOX_STYLE = "mapbox://styles/mrmoha93/cm8erl55o00v401qrgcd82s9o";
+const INITIAL_VIEWPORT = {
+  latitude: 48.2083537,
+  longitude: 16.3725042,
+  width: "100vw",
+  height: "100vh",
+  zoom: 14,
+};
 
+const PlaceMap = () => {
+  const [viewport, setViewport] = useState(INITIAL_VIEWPORT);
   const places = usePlaces();
   const [selectedPlace, setSelectedPlace] = useState(null);
   const { clusters, supercluster } = useCluster(places, viewport.zoom);
   const handleSelectPlace = (place) => {
     setSelectedPlace(place);
   };
+
   useEscapeKey(() => setSelectedPlace(null));
 
   return (
     <Map
       initialViewState={viewport}
       mapboxAccessToken={import.meta.env.VITE_MAPBOX_ACCESS_TOKEN}
-      mapStyle="mapbox://styles/mapbox/outdoors-v12"
+      mapStyle={MAPBOX_STYLE}
       onMove={(evt) => setViewport(evt.viewState)}
     >
       {clusters.map((cluster) => {

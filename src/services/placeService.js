@@ -2,7 +2,7 @@ import axios from "axios";
 
 const API_URL = "https://overpass-api.de/api/interpreter";
 
-export async function getPlaces(limit = 15) {
+export async function getPlaces() {
   const query = `
     [out:json][timeout:25];
     area(id:3600109166)->.searchArea;
@@ -26,10 +26,9 @@ export async function getPlaces(limit = 15) {
     }))
     .filter(
       (place) =>
-        place.description &&
-        place.description.length >= 10 &&
+        place.address &&
+        place.address.length > 1 &&
         !isNaN(place.lat) &&
         !isNaN(place.lon)
-    )
-    .slice(0, limit);
+    );
 }

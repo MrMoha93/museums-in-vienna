@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import { getPlaces } from "../services/placeService";
 
-export function usePlaces(limit) {
+export function usePlaces() {
   const [places, setPlaces] = useState([]);
 
   useEffect(() => {
-    getPlaces(limit).then(setPlaces);
-  }, [limit]);
+    getPlaces().then(setPlaces);
+  }, []);
 
   return places;
 }

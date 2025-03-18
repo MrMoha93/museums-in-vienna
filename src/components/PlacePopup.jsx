@@ -13,16 +13,17 @@ const PlacePopup = ({ selectedPlace, onClose }) => {
       closeOnClick={false}
     >
       <div>
-        <h1>{selectedPlace.name}</h1>
-        <p className="popup-text">{selectedPlace.description}</p>
+        <h2>{selectedPlace.name}</h2>
+        <p className="popup-heading">Description:</p>
+        <p className="popup-text">{selectedPlace.description || "Unknown"}</p>
+        <p className="popup-heading">Address:</p>
         <p className="popup-text">
-          <p className="popup-text">
-            {selectedPlace.address || ""} <br />
-            {selectedPlace.housenumber || ""} <br />
-            {selectedPlace.postcode || ""}
-          </p>
+          {selectedPlace.address || "Unknown"} <br />
+          {selectedPlace.housenumber || ""} <br />
+          {selectedPlace.postcode || ""}
         </p>
-        <p className="popup-text">{selectedPlace.opening_hours}</p>
+        <p className="popup-heading">Opening Hours:</p>
+        <p className="popup-text">{selectedPlace.opening_hours || "Unknown"}</p>
       </div>
     </Popup>
   );
