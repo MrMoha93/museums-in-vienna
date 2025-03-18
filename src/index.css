@@ -50,3 +50,8 @@ body {
   width: 30px;
   height: 30px;
 }
+
+.marker-img {
+  width: 30px !important;
+  height: 30px !important;
+}
