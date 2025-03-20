@@ -13,7 +13,7 @@ const PlacePopup = ({ selectedPlace, onClose }) => {
       closeOnClick={false}
     >
       <div>
-        <h2>{selectedPlace.name}</h2>
+        <h3>{selectedPlace.name}</h3>
         <p className="popup-heading">Description:</p>
         <p className="popup-text">{selectedPlace.description || "Unknown"}</p>
         <p className="popup-heading">Address:</p>

@@ -6,6 +6,7 @@ import MarkerButton from "./MarkerButton";
 import useEscapeKey from "../hooks/useEscapeKey";
 import useCluster from "../hooks/useCluster";
 import ClusterMarker from "./ClusterMarker";
+import SearchBox from "./SearchBox";
 
 const MAPBOX_STYLE = "mapbox://styles/mrmoha93/cm8erl55o00v401qrgcd82s9o";
 const INITIAL_VIEWPORT = {
@@ -21,59 +22,85 @@ const PlaceMap = () => {
   const places = usePlaces();
   const [selectedPlace, setSelectedPlace] = useState(null);
   const { clusters, supercluster } = useCluster(places, viewport.zoom);
+
+  const [searchTerm, setSearchTerm] = useState("");
+  const filteredResults = places
+    .filter((place) =>
+      place.name?.toLowerCase().includes(searchTerm.toLowerCase())
+    )
+    .slice(0, 5);
+
   const handleSelectPlace = (place) => {
+    setSelectedPlace(place);
+    setViewport((prev) => ({
+      ...prev,
+      latitude: place.lat,
+      longitude: place.lon,
+      zoom: 15,
+    }));
+    setSearchTerm("");
+  };
+
+  const handleClickMarker = (e, place) => {
+    e.preventDefault();
     setSelectedPlace(place);
   };
 
   useEscapeKey(() => setSelectedPlace(null));
 
   return (
-    <Map
-      initialViewState={viewport}
-      mapboxAccessToken={import.meta.env.VITE_MAPBOX_ACCESS_TOKEN}
-      mapStyle={MAPBOX_STYLE}
-      onMove={(evt) => setViewport(evt.viewState)}
-    >
-      {clusters.map((cluster) => {
-        const [longitude, latitude] = cluster.geometry.coordinates;
-        const { cluster: isCluster } = cluster.properties;
+    <div className="map-container">
+      <SearchBox
+        value={searchTerm}
+        onChange={setSearchTerm}
+        results={filteredResults}
+        onSelect={handleSelectPlace}
+      />
 
-        if (isCluster) {
+      <Map
+        viewState={viewport}
+        mapboxAccessToken={import.meta.env.VITE_MAPBOX_ACCESS_TOKEN}
+        mapStyle={MAPBOX_STYLE}
+        onMove={(evt) => setViewport(evt.viewState)}
+      >
+        {clusters.map((cluster) => {
+          const [longitude, latitude] = cluster.geometry.coordinates;
+          const { cluster: isCluster } = cluster.properties;
+
+          if (isCluster) {
+            return (
+              <ClusterMarker
+                key={`cluster-${cluster.id}`}
+                cluster={cluster}
+                supercluster={supercluster}
+                viewport={viewport}
+                setViewport={setViewport}
+              />
+            );
+          }
+
           return (
-            <ClusterMarker
-              key={`cluster-${cluster.id}`}
-              cluster={cluster}
-              supercluster={supercluster}
-              viewport={viewport}
-              setViewport={setViewport}
-            />
+            <Marker
+              key={cluster.properties.place.id}
+              longitude={longitude}
+              latitude={latitude}
+            >
+              <MarkerButton
+                place={cluster.properties.place}
+                onSelect={(e, place) => handleClickMarker(e, place)}
+              />
+            </Marker>
           );
-        }
+        })}
 
-        return (
-          <Marker
-            key={cluster.properties.place.id}
-            longitude={longitude}
-            latitude={latitude}
-          >
-            <MarkerButton
-              place={cluster.properties.place}
-              onSelect={(e) => {
-                e.preventDefault();
-                handleSelectPlace(cluster.properties.place);
-              }}
-            />
-          </Marker>
-        );
-      })}
-
-      {selectedPlace && (
-        <PlacePopup
-          selectedPlace={selectedPlace}
-          onClose={() => setSelectedPlace(null)}
-        />
-      )}
-    </Map>
+        {selectedPlace && (
+          <PlacePopup
+            selectedPlace={selectedPlace}
+            onClose={() => setSelectedPlace(null)}
+          />
+        )}
+      </Map>
+    </div>
   );
 };
 
