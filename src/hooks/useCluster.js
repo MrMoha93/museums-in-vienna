@@ -4,7 +4,7 @@ import Supercluster from "supercluster";
 const useCluster = (places, zoom) => {
   const supercluster = useRef(
     new Supercluster({
-      radius: 40,
+      radius: 30,
       extent: 512,
       maxZoom: 16,
     })
