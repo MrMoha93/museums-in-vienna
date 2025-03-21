@@ -1,8 +1,23 @@
-# React + Vite
+## Features
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+- Interactive map centered on **Vienna, Austria** where I use predefined coordinates.
+- Museum data fetched from the Overpass API (OpenStreetMap).  
+- Clustering of nearby museums using Supercluster.  
+- Custom map markers and popup with detailed information. 
+- Escape key functionality to close popups using a custom hook for improved user experience. 
+- Search bar with dropdown and auto navigation to selected museum location.
 
-Currently, two official plugins are available:
+## Running Locally
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+You will need to put the Mapbox API token in .env file to run this locally. You can get a free token on https://www.mapbox.com/.
+
+1. Clone the project:
+   ```bash
+   git clone https://github.com/MrMoha93/museums-in-vienna.git
+   cd museums-in-vienna
+
+2. Install dependencies: npm install
+
+3. Start the development server: npm run dev
+
+
