@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Map, { Marker } from "react-map-gl/mapbox";
 import { usePlaces } from "../hooks/usePlaces";
+import { toast } from "react-toastify";
 import PlacePopup from "./PlacePopup";
 import MarkerButton from "./MarkerButton";
 import useEscapeKey from "../hooks/useEscapeKey";
@@ -53,26 +54,36 @@ export default function PlaceMap() {
     setSelectedPlace(place);
   };
 
+  const handleFavoriteToggle = () => {
+    const currentFavorites = JSON.parse(
+      localStorage.getItem("favorites") || "[]"
+    );
+
+    if (!filterFavoriteMuseums && currentFavorites.length === 0) {
+      toast.error("You haven't saved any museums as favorites.");
+      return;
+    }
+
+    setFilterFavoriteMuseums((prev) => !prev);
+  };
+
   useEscapeKey(() => setSelectedPlace(null));
 
   return (
     <div className="map-container">
       <div className="top-bar">
-        <SearchBox
-          value={searchTerm}
-          onChange={setSearchTerm}
-          results={filteredResults}
-          onSelect={handleSelectPlace}
-        />
-
-        <div
-          className="star-box"
-          onClick={() => setFilterFavoriteMuseums((prev) => !prev)}
-        >
-          <i className="fa-solid fa-star" />
+        <div className="search-star-wrapper">
+          <SearchBox
+            value={searchTerm}
+            onChange={setSearchTerm}
+            results={filteredResults}
+            onSelect={handleSelectPlace}
+          />
+          <div className="star-box" onClick={handleFavoriteToggle}>
+            <i className="fa-solid fa-star" />
+          </div>
         </div>
       </div>
-
       <Map
         viewState={viewport}
         mapboxAccessToken={import.meta.env.VITE_MAPBOX_ACCESS_TOKEN}
@@ -94,7 +105,6 @@ export default function PlaceMap() {
               />
             );
           }
-
           return (
             <Marker
               key={cluster.properties.place.id}
@@ -108,7 +118,6 @@ export default function PlaceMap() {
             </Marker>
           );
         })}
-
         {selectedPlace && (
           <PlacePopup
             selectedPlace={selectedPlace}
