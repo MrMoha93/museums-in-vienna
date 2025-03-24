@@ -17,14 +17,21 @@ const INITIAL_VIEWPORT = {
   zoom: 14,
 };
 
-const PlaceMap = () => {
+export default function PlaceMap() {
   const [viewport, setViewport] = useState(INITIAL_VIEWPORT);
   const places = usePlaces();
   const [selectedPlace, setSelectedPlace] = useState(null);
-  const { clusters, supercluster } = useCluster(places, viewport.zoom);
+  const [filterFavoriteMuseums, setFilterFavoriteMuseums] = useState(false);
+  const favorites = JSON.parse(localStorage.getItem("favorites") || "[]");
 
+  const visiblePlaces = filterFavoriteMuseums
+    ? places.filter((place) => favorites.includes(place.id))
+    : places;
+
+  const { clusters, supercluster } = useCluster(visiblePlaces, viewport.zoom);
   const [searchTerm, setSearchTerm] = useState("");
-  const filteredResults = places
+
+  const filteredResults = visiblePlaces
     .filter((place) =>
       place.name?.toLowerCase().includes(searchTerm.toLowerCase())
     )
@@ -50,12 +57,21 @@ const PlaceMap = () => {
 
   return (
     <div className="map-container">
-      <SearchBox
-        value={searchTerm}
-        onChange={setSearchTerm}
-        results={filteredResults}
-        onSelect={handleSelectPlace}
-      />
+      <div className="top-bar">
+        <SearchBox
+          value={searchTerm}
+          onChange={setSearchTerm}
+          results={filteredResults}
+          onSelect={handleSelectPlace}
+        />
+
+        <div
+          className="star-box"
+          onClick={() => setFilterFavoriteMuseums((prev) => !prev)}
+        >
+          <i className="fa-solid fa-star" />
+        </div>
+      </div>
 
       <Map
         viewState={viewport}
@@ -102,6 +118,4 @@ const PlaceMap = () => {
       </Map>
     </div>
   );
-};
-
-export default PlaceMap;
+}
