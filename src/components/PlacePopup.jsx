@@ -1,6 +1,10 @@
 import { Popup } from "react-map-gl/mapbox";
+import Favorite from "./Favorite";
+import useFavorites from "../hooks/useFavorites";
 
-const PlacePopup = ({ selectedPlace, onClose }) => {
+export default function PlacePopup({ selectedPlace, onClose }) {
+  const { isFavored, toggleFavorite } = useFavorites(selectedPlace.id);
+
   if (!selectedPlace || !selectedPlace.lat || !selectedPlace.lon) {
     return null;
   }
@@ -14,6 +18,7 @@ const PlacePopup = ({ selectedPlace, onClose }) => {
     >
       <div>
         <h3>{selectedPlace.name}</h3>
+        <Favorite isFavored={isFavored} onFavor={toggleFavorite} />
         <p className="popup-heading">Description:</p>
         <p className="popup-text">{selectedPlace.description || "Unknown"}</p>
         <p className="popup-heading">Address:</p>
@@ -27,6 +32,4 @@ const PlacePopup = ({ selectedPlace, onClose }) => {
       </div>
     </Popup>
   );
-};
-
-export default PlacePopup;
+}
