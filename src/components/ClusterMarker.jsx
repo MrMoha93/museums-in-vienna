@@ -1,7 +1,7 @@
 import React from "react";
 import { Marker } from "react-map-gl/mapbox";
 
-const ClusterMarker = ({ cluster }) => {
+export default function ClusterMarker({ cluster }) {
   const [longitude, latitude] = cluster.geometry.coordinates;
   const { point_count: pointCount } = cluster.properties;
 
@@ -10,6 +10,4 @@ const ClusterMarker = ({ cluster }) => {
       <div className="cluster-marker">{pointCount}</div>
     </Marker>
   );
-};
-
-export default ClusterMarker;
+}

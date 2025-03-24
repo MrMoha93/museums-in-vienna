@@ -1,7 +1,7 @@
 import { useMemo, useRef } from "react";
 import Supercluster from "supercluster";
 
-const useCluster = (places, zoom) => {
+export default function useCluster(places, zoom) {
   const supercluster = useRef(
     new Supercluster({
       radius: 30,
@@ -9,6 +9,7 @@ const useCluster = (places, zoom) => {
       maxZoom: 16,
     })
   );
+
   const clusters = useMemo(() => {
     if (!places.length) return [];
 
@@ -32,6 +33,4 @@ const useCluster = (places, zoom) => {
   }, [places, zoom]);
 
   return { clusters, supercluster };
-};
-
-export default useCluster;
+}
