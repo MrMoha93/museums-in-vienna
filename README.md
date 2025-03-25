@@ -6,6 +6,9 @@
 - Custom map markers and popup with detailed information. 
 - Escape key functionality to close popups using a custom hook for improved user experience. 
 - Search bar with dropdown and auto navigation to selected museum location.
+- Can mark/unmark museums as favorites (stored in localStorage).
+- Only show favorite museums with a single click on a star icon. Click again to show all museums.
+- Toast notification if no museums are saved as favorites.
 
 ## Running Locally
 
