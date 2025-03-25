@@ -7,6 +7,7 @@ export function FavoriteProvider({ children }) {
     return JSON.parse(localStorage.getItem("favorites") || "[]");
   });
 
+  const totalFavorites = favorites.length;
   const [filterFavoriteMuseums, setFilterFavoriteMuseums] = useState(false);
 
   useEffect(() => {
@@ -33,6 +34,7 @@ export function FavoriteProvider({ children }) {
         isFavored,
         filterFavoriteMuseums,
         setFilterFavoriteMuseums,
+        totalFavorites,
       }}
     >
       {children}

@@ -94,6 +94,7 @@ body {
 }
 
 .star-box {
+  position: relative;
   background: white;
   padding: 8px 10px;
   border-radius: 10px;
@@ -106,6 +107,21 @@ body {
   font-size: 20px;
   margin-left: 30px;
   transform: translateY(0px);
+}
+
+.favorite-badge {
+  position: absolute;
+  top: -1px;
+  right: -6px;
+  background: rgb(136, 4, 4);
+  color: white;
+  font-size: 10px;
+  font-weight: bold;
+  border-radius: 50%;
+  padding: 3px 1px;
+  min-width: 18px;
+  text-align: center;
+  line-height: 1;
 }
 
 .star-box:active {

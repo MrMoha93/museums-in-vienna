@@ -23,8 +23,12 @@ export default function PlaceMap() {
   const [viewport, setViewport] = useState(INITIAL_VIEWPORT);
   const places = usePlaces();
   const [selectedPlace, setSelectedPlace] = useState(null);
-  const { favorites, filterFavoriteMuseums, setFilterFavoriteMuseums } =
-    useFavoriteContext();
+  const {
+    favorites,
+    filterFavoriteMuseums,
+    setFilterFavoriteMuseums,
+    totalFavorites,
+  } = useFavoriteContext();
 
   const visiblePlaces = filterFavoriteMuseums
     ? places.filter((place) => favorites.includes(place.id))
@@ -96,6 +100,9 @@ export default function PlaceMap() {
                 isAnyFavorite() ? "fa-solid fa-star" : "fa-regular fa-star"
               }
             />
+            {totalFavorites > 0 && (
+              <span className="favorite-badge">{totalFavorites}</span>
+            )}
           </div>
         </div>
       </div>
