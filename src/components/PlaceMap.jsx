@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Map, { Marker } from "react-map-gl/mapbox";
 import { usePlaces } from "../hooks/usePlaces";
 import { toast } from "react-toastify";
+import { useFavoriteContext } from "../context/FavoriteContext";
 import PlacePopup from "./PlacePopup";
 import MarkerButton from "./MarkerButton";
 import useEscapeKey from "../hooks/useEscapeKey";
@@ -22,8 +23,8 @@ export default function PlaceMap() {
   const [viewport, setViewport] = useState(INITIAL_VIEWPORT);
   const places = usePlaces();
   const [selectedPlace, setSelectedPlace] = useState(null);
-  const [filterFavoriteMuseums, setFilterFavoriteMuseums] = useState(false);
-  const favorites = JSON.parse(localStorage.getItem("favorites") || "[]");
+  const { favorites, filterFavoriteMuseums, setFilterFavoriteMuseums } =
+    useFavoriteContext();
 
   const visiblePlaces = filterFavoriteMuseums
     ? places.filter((place) => favorites.includes(place.id))
