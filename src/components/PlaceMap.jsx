@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Map, { Marker } from "react-map-gl/mapbox";
 import { usePlaces } from "../hooks/usePlaces";
 import { toast } from "react-toastify";
@@ -50,6 +50,12 @@ export default function PlaceMap() {
     setSearchTerm("");
   };
 
+  useEffect(() => {
+    if (filterFavoriteMuseums && favorites.length === 0) {
+      setFilterFavoriteMuseums(false);
+    }
+  }, [favorites, filterFavoriteMuseums]);
+
   const handleClickMarker = (e, place) => {
     e.preventDefault();
     setSelectedPlace(place);
@@ -70,6 +76,10 @@ export default function PlaceMap() {
 
   useEscapeKey(() => setSelectedPlace(null));
 
+  function isAnyFavorite() {
+    return favorites.length > 0;
+  }
+
   return (
     <div className="map-container">
       <div className="top-bar">
@@ -81,7 +91,11 @@ export default function PlaceMap() {
             onSelect={handleSelectPlace}
           />
           <div className="star-box" onClick={handleFavoriteToggle}>
-            <i className="fa-solid fa-star" />
+            <i
+              className={
+                isAnyFavorite() ? "fa-solid fa-star" : "fa-regular fa-star"
+              }
+            />
           </div>
         </div>
       </div>
