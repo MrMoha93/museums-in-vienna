@@ -14,7 +14,7 @@ export default function SearchBox({ value, onChange, results, onSelect }) {
   };
 
   return (
-    <div>
+    <div className="search-wrapper">
       <input
         className="search-box-container"
         value={value}
