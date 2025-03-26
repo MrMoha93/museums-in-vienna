@@ -23,6 +23,7 @@ export default function PlaceMap() {
   const [viewport, setViewport] = useState(INITIAL_VIEWPORT);
   const places = usePlaces();
   const [selectedPlace, setSelectedPlace] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
   const {
     favorites,
     filterFavoriteMuseums,
@@ -60,6 +61,12 @@ export default function PlaceMap() {
     }
   }, [favorites, filterFavoriteMuseums]);
 
+  useEffect(() => {
+    if (places.length > 0) {
+      setIsLoading(false);
+    }
+  }, [places]);
+
   const handleClickMarker = (e, place) => {
     e.preventDefault();
     setSelectedPlace(place);
@@ -82,6 +89,10 @@ export default function PlaceMap() {
 
   function isAnyFavorite() {
     return favorites.length > 0;
+  }
+
+  if (isLoading) {
+    return <h1>Loading...</h1>;
   }
 
   return (
