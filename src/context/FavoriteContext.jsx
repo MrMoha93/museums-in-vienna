@@ -1,4 +1,5 @@
 import { createContext, useContext, useEffect, useState } from "react";
+import { toast } from "react-toastify";
 
 const FavoriteContext = createContext();
 
@@ -20,6 +21,17 @@ export function FavoriteProvider({ children }) {
       : [...favorites, id];
 
     setFavorites(updated);
+
+    const tip = sessionStorage.getItem("tip");
+
+    if (!tip && !favorites.includes(id) && updated.length === 1) {
+      toast.info(
+        "Tip: To unfavorite a museum, click the star again in the popup. To filter favorite museums, click the star box.",
+        { autoClose: 15000 }
+      );
+
+      sessionStorage.setItem("tip", "true");
+    }
   }
 
   function isFavored(id) {
