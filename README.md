@@ -9,6 +9,7 @@
 - Can mark/unmark museums as favorites (stored in localStorage).
 - Only show favorite museums with a single click on a star icon. Click again to show all museums.
 - Toast notification if no museums are saved as favorites.
+- Favorite badge count on star box. 
 
 ## Running Locally
 
@@ -19,8 +20,15 @@ You will need to put the Mapbox API token in .env file to run this locally. You 
    git clone https://github.com/MrMoha93/museums-in-vienna.git
    cd museums-in-vienna
 
-2. Install dependencies: npm install
 
-3. Start the development server: npm run dev
+2. Install dependencies: 
+  ```bash
+npm install
+```
 
+3. Start the development server: 
+
+  ```bash
+npm run dev
+```
 
