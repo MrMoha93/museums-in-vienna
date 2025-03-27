@@ -26,7 +26,7 @@ export function FavoriteProvider({ children }) {
 
     if (!tip && !favorites.includes(id) && updated.length === 1) {
       toast.info(
-        "Tip: To unfavorite a museum, click the star again in the popup. To filter favorite museums, click the star box.",
+        "To unfavorite a museum, click the star again in the popup. To filter favorite museums, click the star box.",
         { autoClose: 15000 }
       );
 

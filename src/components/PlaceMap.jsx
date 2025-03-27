@@ -16,7 +16,7 @@ const INITIAL_VIEWPORT = {
   longitude: 16.3725042,
   width: "100vw",
   height: "100vh",
-  zoom: 14,
+  zoom: 13,
 };
 
 export default function PlaceMap() {
