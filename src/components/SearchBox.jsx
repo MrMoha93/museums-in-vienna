@@ -1,3 +1,4 @@
+import "../css/search-box.css";
 import { useState } from "react";
 import ThreeDButton from "./3DButton";
 

@@ -1,3 +1,4 @@
+import "../css/markers.css";
 import React from "react";
 import { Marker } from "react-map-gl/mapbox";
 

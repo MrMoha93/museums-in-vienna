@@ -1,3 +1,5 @@
+import "../css/search-box.css";
+
 export default function ThreeDButton({ onClick }) {
   return (
     <button className="search-icon-btn" onClick={onClick}>

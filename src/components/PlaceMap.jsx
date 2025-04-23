@@ -1,3 +1,4 @@
+import "../css/favorite.css";
 import React, { useEffect, useState, useRef, useCallback } from "react";
 import Map, { Marker } from "react-map-gl/mapbox";
 import { usePlaces } from "../hooks/usePlaces";

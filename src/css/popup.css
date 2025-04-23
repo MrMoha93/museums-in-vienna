@@ -1,0 +1,15 @@
+.popup-heading {
+  font-weight: bold;
+  font-size: 14px;
+  margin-top: 10px;
+}
+
+.popup-text {
+  font-size: 14px;
+}
+
+.popup-distance {
+  margin-left: 6px;
+  font-size: 12px;
+  color: #3f3f3f;
+}

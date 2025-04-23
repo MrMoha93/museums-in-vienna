@@ -1,3 +1,4 @@
+import "../css/popup.css";
 import { Popup } from "react-map-gl/mapbox";
 import { useFavoriteContext } from "../context/FavoriteContext";
 import { calculateDistanceToCenter } from "../utils/distance";

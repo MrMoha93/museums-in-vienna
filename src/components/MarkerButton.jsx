@@ -1,3 +1,5 @@
+import "../css/markers.css";
+
 export default function MarkerButton({ place, onSelect }) {
   return (
     <button
