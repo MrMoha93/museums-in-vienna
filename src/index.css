@@ -21,6 +21,11 @@ body {
   height: 100vh;
 }
 
+.mapboxgl-popup-content {
+  max-height: 250px;
+  overflow-y: auto;
+}
+
 .top-bar {
   position: absolute;
   top: 10px;

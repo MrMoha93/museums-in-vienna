@@ -8,6 +8,7 @@ export default function SearchBox({
   results,
   onSelect,
   onToggle3D,
+  is3D,
 }) {
   const [showDropdown, setShowDropdown] = useState(true);
 
@@ -31,7 +32,7 @@ export default function SearchBox({
           placeholder="Search museums..."
           style={{ outline: "0px solid #000", outlineOffset: "0" }}
         />
-        <ThreeDButton onClick={onToggle3D} />
+        <ThreeDButton onClick={onToggle3D} is3D={is3D} />
       </div>
       {value && results.length > 0 && showDropdown && (
         <ul className="dropdown-list">

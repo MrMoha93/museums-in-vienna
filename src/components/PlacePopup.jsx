@@ -17,6 +17,7 @@ export default function PlacePopup({ selectedPlace, onClose }) {
       longitude={selectedPlace.lon}
       onClose={onClose}
       closeOnClick={false}
+      anchor="top"
     >
       <div>
         <h3>{selectedPlace.name}</h3>

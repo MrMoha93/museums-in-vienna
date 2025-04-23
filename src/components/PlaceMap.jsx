@@ -134,6 +134,7 @@ export default function PlaceMap() {
             results={filteredResults}
             onSelect={handleSelectPlace}
             onToggle3D={toggle3D}
+            is3D={is3D}
           />
           <div className="star-box" onClick={handleFavoriteToggle}>
             <i
