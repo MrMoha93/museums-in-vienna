@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef, useCallback } from "react";
 import Map, { Marker } from "react-map-gl/mapbox";
 import { usePlaces } from "../hooks/usePlaces";
 import { toast } from "react-toastify";
 import { useFavoriteContext } from "../context/FavoriteContext";
+import { throttle } from "lodash";
 import PlacePopup from "./PlacePopup";
 import MarkerButton from "./MarkerButton";
 import useEscapeKey from "../hooks/useEscapeKey";
@@ -10,7 +11,7 @@ import useCluster from "../hooks/useCluster";
 import ClusterMarker from "./ClusterMarker";
 import SearchBox from "./SearchBox";
 
-const MAPBOX_STYLE = "mapbox://styles/mrmoha93/cm8erl55o00v401qrgcd82s9o";
+const MAPBOX_STYLE = "mapbox://styles/mrmoha93/cm8atl45u00g301s38xt54b7g";
 const INITIAL_VIEWPORT = {
   latitude: 48.2083537,
   longitude: 16.3725042,
@@ -23,6 +24,7 @@ export default function PlaceMap() {
   const [viewport, setViewport] = useState(INITIAL_VIEWPORT);
   const places = usePlaces();
   const [selectedPlace, setSelectedPlace] = useState(null);
+  const [is3D, setIs3D] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const {
     favorites,
@@ -30,6 +32,15 @@ export default function PlaceMap() {
     setFilterFavoriteMuseums,
     totalFavorites,
   } = useFavoriteContext();
+
+  const mapRef = useRef();
+
+  const handleMove = useCallback(
+    throttle((evt) => {
+      setViewport(evt.viewState);
+    }, 50),
+    []
+  );
 
   const visiblePlaces = filterFavoriteMuseums
     ? places.filter((place) => favorites.includes(place.id))
@@ -46,14 +57,27 @@ export default function PlaceMap() {
 
   const handleSelectPlace = (place) => {
     setSelectedPlace(place);
-    setViewport((prev) => ({
-      ...prev,
-      latitude: place.lat,
-      longitude: place.lon,
-      zoom: 15,
-    }));
     setSearchTerm("");
+
+    mapRef.current?.flyTo({
+      center: [place.lon, place.lat],
+      zoom: 16,
+      pitch: is3D ? 40 : 0,
+      bearing: is3D ? 100 : 0,
+      duration: 1000,
+      essential: true,
+    });
   };
+
+  useEffect(() => {
+    if (!mapRef.current) return;
+
+    mapRef.current.easeTo({
+      pitch: is3D ? 30 : 0,
+      bearing: is3D ? 0 : 0,
+      duration: 500,
+    });
+  }, [is3D]);
 
   useEffect(() => {
     if (filterFavoriteMuseums && favorites.length === 0) {
@@ -91,6 +115,10 @@ export default function PlaceMap() {
     return favorites.length > 0;
   }
 
+  const toggle3D = () => {
+    setIs3D((prev) => !prev);
+  };
+
   if (isLoading) {
     return <h1>Loading...</h1>;
   }
@@ -104,6 +132,7 @@ export default function PlaceMap() {
             onChange={setSearchTerm}
             results={filteredResults}
             onSelect={handleSelectPlace}
+            onToggle3D={toggle3D}
           />
           <div className="star-box" onClick={handleFavoriteToggle}>
             <i
@@ -118,10 +147,11 @@ export default function PlaceMap() {
         </div>
       </div>
       <Map
+        ref={mapRef}
         viewState={viewport}
         mapboxAccessToken={import.meta.env.VITE_MAPBOX_ACCESS_TOKEN}
         mapStyle={MAPBOX_STYLE}
-        onMove={(evt) => setViewport(evt.viewState)}
+        onMove={handleMove}
       >
         {clusters.map((cluster) => {
           const [longitude, latitude] = cluster.geometry.coordinates;

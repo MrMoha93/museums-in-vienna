@@ -1,6 +1,13 @@
 import { useState } from "react";
+import ThreeDButton from "./3DButton";
 
-export default function SearchBox({ value, onChange, results, onSelect }) {
+export default function SearchBox({
+  value,
+  onChange,
+  results,
+  onSelect,
+  onToggle3D,
+}) {
   const [showDropdown, setShowDropdown] = useState(true);
 
   const handleSelect = (result) => {
@@ -15,13 +22,16 @@ export default function SearchBox({ value, onChange, results, onSelect }) {
 
   return (
     <div className="search-wrapper">
-      <input
-        className="search-box-container"
-        value={value}
-        onChange={handleInputChange}
-        placeholder="Search museums..."
-        style={{ outline: "0px solid #000", outlineOffset: "0" }}
-      />
+      <div className="search-input-wrapper">
+        <input
+          className="search-box-container"
+          value={value}
+          onChange={handleInputChange}
+          placeholder="Search museums..."
+          style={{ outline: "0px solid #000", outlineOffset: "0" }}
+        />
+        <ThreeDButton onClick={onToggle3D} />
+      </div>
       {value && results.length > 0 && showDropdown && (
         <ul className="dropdown-list">
           {results.map((result) => (
